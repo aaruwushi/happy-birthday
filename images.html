@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            align-items: center;
+            border-bottom: 1px solid #ebebeb;
+        }
+        .logo {
+            height: 30px;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 600px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 24px;
+            border: 1px solid #dfe1e5;
+            font-size: 16px;
+            outline: none;
+        }
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+            padding: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .image-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .image-item:hover {
+            transform: scale(1.02);
+        }
+        .image-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        .image-info {
+            padding: 10px;
+            font-size: 14px;
+        }
+        .image-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #1a0dab;
+        }
+        .image-source {
+            color: #70757a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="logo" id="logo">
+        <div class="search-container">
+            <input type="text" class="search-input" value="" id="searchQuery">
+        </div>
+        <div>
+            <a href="#" class="sign-in">Sign in</a>
+        </div>
+    </header>
+
+    <div class="images-grid" id="imagesGrid">
+        <!-- Images will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get folder name from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            // const folder = urlParams.get('folder');
+            const folder = decodeURIComponent(urlParams.get('folder')); 
+
+            const logo = document.getElementById("logo");
+            logo.addEventListener('click', function(){
+                window.location.href="index.html";
+            });
+
+            console.log(folder);
+            
+            // Set the search query to the folder name
+            document.getElementById('searchQuery').value = folder;
+            
+            // Image data - in a real app, you would fetch these from a server
+            const imageData = {
+                "Pookie": [
+                    { src: "pookie/a.JPG", title: "MANIT", source: "16 Feb 2023" },
+                    { src: "pookie/b.JPG", title: "Pondicherry", source: "15 June 2024" },
+                    { src: "pookie/c.JPG", title: "Pondicherry", source: "15 June 2024" },
+                    { src: "pookie/d.JPG", title: "Church Street", source: "17 June 2024" },
+                    { src: "pookie/e.JPG", title: "Chakri", source: "8 September 2024" },
+                    { src: "pookie/f.jpg", title: "Pachmarhi", source: "20 October 2024" },
+                ],
+                "Rama with First Love": [
+                    { src: "doggo/a.JPG", title: "Canteen", source: "16 December 2022" },
+                    { src: "doggo/b.JPG", title: "Amulya", source: "19 December 2022" },
+                    { src: "doggo/c.JPG", title: "Food Carnival", source: "28 January 2023" },
+                    { src: "doggo/d.JPG", title: "Pawpiness", source: "5 February 2023" },
+                    { src: "doggo/e.JPG", title: "Amulya", source: "26 March 2023" },
+                    { src: "doggo/f.JPG", title: "Pondicherry", source: "16 June 2024" },
+                    { src: "doggo/g.JPG", title: "Backstreet Brewery", source: "29 June 2024" },
+                    { src: "doggo/h.JPG", title: "Tealogy", source: "23 June 2022" },
+                    { src: "doggo/i.JPG", title: "Canteen", source: "10 August 2023" }
+                ],
+                "Rama with Second Love": [
+                    { src: "pyaar/a.JPG", title: "Jaipur", source: "13 October 2022" },
+                    { src: "pyaar/b.JPG", title: "MANIT", source: "07 October 2022" },
+                    { src: "pyaar/c.JPG", title: "Pondicherry", source: "15 June 2024" },
+                ],
+                "Rama Fake Smile": [
+                    { src: "fake/a.JPG", title: "10 No.", source: "27 August 2024" },
+                    { src: "fake/b.JPG", title: "Lalghati", source: "2 May 2025" },
+                    { src: "fake/c.JPG", title: "Mela", source: "29 November 2024" },
+                    { src: "fake/d.JPG", title: "Burger Farm", source: "21 November 2024" },
+                    { src: "fake/e.JPG", title: "MANIT", source: "14 October 2024" },
+                    { src: "fake/f.JPG", title: "MANIT", source: "5 October 2024" },
+                    { src: "fake/g.JPG", title: "Burger Farm", source: "8 November 2024" },
+                    { src: "fake/h.JPG", title: "Taj Hotel (ke saamne)", source: "10 March 2024" },
+                    { src: "fake/i.JPG", title: "Auto", source: "8 April 2023" },
+                    { src: "fake/j.JPG", title: "Kiosk Cafe", source: "20 April 2023" },
+                    { src: "fake/k.JPG", title: "10 No.", source: "22 April 2023" },
+                    { src: "fake/l.JPG", title: "Pachmarhi", source: "19 October 2024" },
+                    { src: "fake/m.JPG", title: "Pachmarhi", source: "19 October 2024" },
+                    { src: "fake/n.JPG", title: "MANIT", source: "4 November 2023" },
+                    { src: "fake/o.JPEG", title: "Pachmarhi", source: "20 October 2024" },
+                ],
+                "Rama Real Smile": [
+                    { src: "real/a.JPG", title: "Pachmarhi", source: "20 October 2024" },
+                    { src: "real/b.JPG", title: "NBC", source: "4 October 2022" },
+                    { src: "real/c.JPG", title: "10 No.", source: "30 April 2025" },
+                    { src: "real/d.JPG", title: "DB Mall", source: "8 April 2023" },
+                    { src: "real/e.JPG", title: "Bangalore", source: "15 May 2024" },
+                    { src: "real/f.JPG", title: "MANIT", source: "7 May 2022" },
+                    { src: "real/g.JPG", title: "Bangalore", source: "25 May 2024" },
+                    { src: "real/h.JPG", title: "Daddy (hehe)", source: "8 June 2024" },
+                    { src: "real/i.JPG", title: "Kiosk Cafe", source: "20 April 2023" },
+                    { src: "real/j.jpg", title: "Pondicherry", source: "16 June 2024" },
+                    { src: "real/k.PNG", title: "Jaipur x Bangalore", source: "17 July 2024" },
+                    { src: "real/l.JPG", title: "NBC", source: "31 August 2024" },
+                    { src: "real/m.JPG", title: "MANIT", source: "1 July 2022" },
+                    { src: "real/n.JPG", title: "Auto", source: "5 August 2023" },
+                    { src: "real/o.JPG", title: "Ganesham ke bagal wala juice bar", source: "19 August 2023" },
+                    { src: "real/p.JPG", title: "NBC", source: "9 October 2024" },
+                    { src: "real/q.JPG", title: "Indore", source: "11 October 2024" },
+                    { src: "real/r.JPG", title: "Indore", source: "11 October 2024" },
+                    { src: "real/s.JPG", title: "NBC", source: "17 October 2024" },
+                    { src: "real/t.JPG", title: "Idli & More", source: "8 November 2024" },
+                    { src: "real/u.JPG", title: "Burger Farm", source: "12 November 2024" },
+                    { src: "real/v.JPG", title: "ICH", source: "14 November 2024" },
+                    { src: "real/w.jpg", title: "MANIT", source: "25 September 2022" },
+                ],
+                "Rama with Bestestest Friend in the Whole Wide World": [
+                    { src: "bestf/a.JPG", title: "Kaliyasot", source: "2 July 2022" },
+                    { src: "bestf/b.JPG", title: "Food Carnival", source: "28 January 2023" },
+                    { src: "bestf/c.JPG", title: "Mela", source: "19 December 2022" },
+                    { src: "bestf/d.JPG", title: "Pondicherry", source: "15 June 2024" },
+                    { src: "bestf/e.JPG", title: "MANIT", source: "5 Februrary 2023" },
+                    { src: "bestf/f.jpg", title: "Pondicherry", source: "20 October 2024" },
+                    { src: "bestf/g.jpg", title: "pondicherry", source: "15 June 2024" },
+                    { src: "bestf/h.JPEG", title: "Pachmarhi", source: "20 October 2024" },
+                    { src: "bestf/i.JPEG", title: "Pachmarhi", source: "20 October 2024" },
+                ],
+            };
+            
+            // Display images for the selected folder
+            const imagesGrid = document.getElementById('imagesGrid');
+            
+            if (folder && imageData[folder]) {
+                imageData[folder].forEach(image => {
+                    const item = document.createElement('div');
+                    item.className = 'image-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = image.src;
+                    img.alt = image.title;
+                    
+                    const info = document.createElement('div');
+                    info.className = 'image-info';
+                    
+                    const title = document.createElement('div');
+                    title.className = 'image-title';
+                    title.textContent = image.title;
+                    
+                    const source = document.createElement('div');
+                    source.className = 'image-source';
+                    source.textContent = image.source;
+                    
+                    info.appendChild(title);
+                    info.appendChild(source);
+                    
+                    item.appendChild(img);
+                    item.appendChild(info);
+                    
+
+                    imagesGrid.appendChild(item);
+                });
+            } else {
+                imagesGrid.innerHTML = '<p>No images found for this search.</p>';
+            }
+        });
+
+
+    </script>
+</body>
+</html>

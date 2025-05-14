@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rama - Google Search</title>
+    <style>
+        /* Reset and Base Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #202124;
+            line-height: 1.5;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #1a0dab;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            align-items: center;
+            border-bottom: 1px solid #ebebeb;
+        }
+        
+        .logo {
+            height: 30px;
+            margin-right: 20px;
+        }
+        
+        .search-container {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            max-width: 692px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 24px;
+            border: 1px solid #dfe1e5;
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-link {
+            margin-left: 15px;
+            font-size: 13px;
+            color: rgba(0, 0, 0, 0.87);
+        }
+        
+        .menu-icon, .sign-in {
+            margin-left: 15px;
+        }
+        
+        .sign-in {
+            background-color: #1a73e8;
+            color: white;
+            padding: 9px 23px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ebebeb;
+            padding: 0 180px;
+        }
+        
+        .tab {
+            padding: 15px 20px;
+            font-size: 14px;
+            color: #5f6368;
+        }
+        
+        .tab.active {
+            color: #1a73e8;
+            border-bottom: 3px solid #1a73e8;
+        }
+        
+        /* Main Content */
+        .container {
+            display: flex;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding-right: 30px;
+        }
+        
+        .sidebar {
+            width: 370px;
+        }
+        
+        /* Knowledge Panel */
+        .knowledge-panel {
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            padding: 20px;
+            border-bottom: 1px solid #ebebeb;
+        }
+        
+        .panel-title {
+            font-size: 30px;
+            font-weight: normal;
+            margin: 0;
+        }
+        
+        .panel-subtitle {
+            color: #5f6368;
+            margin: 5px 0;
+        }
+        
+        .panel-tabs {
+            display: flex;
+            border-bottom: 1px solid #ebebeb;
+        }
+        
+        .panel-tab {
+            padding: 15px 20px;
+            color: #5f6368;
+            font-size: 14px;
+        }
+        
+        .panel-tab.active {
+            color: #1a73e8;
+            border-bottom: 2px solid #1a73e8;
+        }
+        
+        .panel-content {
+            padding: 20px;
+        }
+        
+        .panel-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: normal;
+            margin: 0 0 15px 0;
+        }
+        
+        .news-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .news-content {
+            flex: 1;
+        }
+        
+        .news-title {
+            font-size: 16px;
+            margin: 0 0 5px 0;
+        }
+        
+        .news-source {
+            color: #5f6368;
+            font-size: 14px;
+        }
+        
+        .news-time {
+            color: #5f6368;
+            font-size: 12px;
+        }
+        
+        .news-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-left: 15px;
+            border-radius: 4px;
+        }
+        
+        .about-section {
+            margin-bottom: 20px;
+        }
+        
+        .about-text {
+            font-size: 14px;
+            line-height: 1.58;
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .info-label {
+            width: 120px;
+            color: #5f6368;
+            font-size: 14px;
+        }
+        
+        .info-value {
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        /* Search Results */
+        .result-stats {
+            color: #5f6368;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .search-result {
+            margin-bottom: 30px;
+            max-width: 650px;
+        }
+        
+        .result-title {
+            font-size: 20px;
+            margin: 0 0 5px 0;
+            font-weight: normal;
+        }
+        
+        .result-url {
+            color: #5f6368;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .result-snippet {
+            font-size: 14px;
+            line-height: 1.58;
+        }
+        
+        .related-questions {
+            margin: 30px 0;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .question {
+            font-size: 16px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ebebeb;
+        }
+        
+        .question:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="search-container">
+            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="logo" id="logo">
+            <input type="text" class="search-input" value="Rama">
+        </div>
+        <div class="header-right">
+            <a href="#" class="header-link">Gmail</a>
+            <a href="#" class="header-link">Images</a>
+            <img src="https://ssl.gstatic.com/gb/images/i1_1967ca6a.png" class="menu-icon" alt="Google apps" width="24">
+            <a href="#" class="sign-in">Sign in</a>
+        </div>
+    </header>
+
+    <div class="tabs">
+        <a href="#" class="tab active">All</a>
+        <a href="#" class="tab">News</a>
+        <a href="#" class="tab">Images</a>
+        <a href="#" class="tab">Videos</a>
+        <a href="#" class="tab">Shopping</a>
+        <a href="#" class="tab">More</a>
+    </div>
+
+    <div class="container">
+        <main class="main-content">
+            <div class="result-stats">About 1,270,000,000 results (0.42 seconds)</div>
+            
+            <div class="search-result">
+                <h2 class="result-title"><a href="#">Rama Bhala - Wikipedia</a></h2>
+                <div class="result-url">https://en.wikipedia.org/wiki/Rama_Bhala</div>
+                <p class="result-snippet">
+                    Rama Bhala is a 22 year old chomu boy whose hobbies include nashey karna, doston ke saath galeechta karna aur din raat sona. He also ...
+                </p>
+            </div>
+            
+            <div class="search-result">
+                <h2 class="result-title"><a href="#">Rama Bhala (@ramabhala) / Instagram </a></h2>
+                <div class="result-url">https://www.instagram.com/ramabhala</div>
+                <p class="result-snippet">
+                    Take a look at his social media account (that is mostly dead except for maybe one story a month) whose reel suggestions are filled with galeech and brain rot content. If opened after 2AM, you'll be washed over by a wave of dukh dard.
+                </p>
+            </div>
+            
+            <div class="related-questions">
+                <div class="question">How many years before Rama stops roasting his friend?</div>
+                <div class="question">Does Rama really have any qadar for his friend?</div>
+                <div class="question">How many havans will Aarushi have to perform so that Rama starts appreciating and complimenting her?</div>
+            </div>
+
+            <div class="search-result">
+                <h2 class="result-title"><a href="#">My Assistant</a></h2>
+                <div class="result-url">https://www.myassistant.com/ramabhala</div>
+                <p class="result-snippet">
+                    A personal AI assistant specially being developed for Mr. Rama Bhala because he's a very busy personality. All his fans and chaahne wale can book appointments here before meeting him. 
+                </p>
+            </div>
+            
+            <!-- <div class="search-result">
+                <h2 class="result-title"><a href="#">Donald Trump (@realDonaldTrump) / X</a></h2>
+                <div class="result-url">https://twitter.com/realDonaldTrump</div>
+                <p class="result-snippet">
+                    The latest tweets from Donald Trump. 45th President of the United States of America, businessman.
+                </p>
+            </div> -->
+        </main>
+
+        <aside class="sidebar">
+            <div class="knowledge-panel">
+                <div class="panel-header">
+                    <h1 class="panel-title">Rama Bhala</h1>
+                    <div class="panel-subtitle">Aarushi's Best Friend</div>
+                </div>
+                
+                <div class="panel-tabs">
+                    <a href="#" class="panel-tab active">Overview</a>
+                    <a href="#" class="panel-tab">Education</a>
+                    <a href="#" class="panel-tab">Annals</a>
+                    <a href="#" class="panel-tab">Anonymous</a>
+                </div>
+                
+                <div class="panel-content">
+                    <div class="panel-section">
+                        <h3 class="section-title">Top stories</h3>
+                        
+                        <div class="news-item">
+                            <div class="news-content">
+                                <h4 class="news-title">Rama gets admission in the CSE branch of MANIT, experts say he will spend the next 3 years tortuing his friend about her lower branch ...</h4>
+                                <div class="news-source">Times of MANIT</div>
+                                <div class="news-time">12 hours ago</div>
+                            </div>
+                            <img src="news1.jpg" alt="News image" class="news-image">
+                        </div>
+                        
+                        <div class="news-item">
+                            <div class="news-content">
+                                <h4 class="news-title">Rama's reputation takes a deep plunge as he is spotted with a chhapri at ...</h4>
+                                <div class="news-source">The MANIT Times</div>
+                                <div class="news-time">1 day ago</div>
+                            </div>
+                            <img src="news2.JPG" alt="News image" class="news-image">
+                        </div>
+                    </div>
+                    
+                    <div class="panel-section">
+                        <div class="info-item">
+                            <div class="info-label">Age</div>
+                            <div class="info-value">22 years (15 May 2003)</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Profession</div>
+                            <div class="info-value">Bakchodi</div>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="panel-section">
+                        <h3 class="section-title">About</h3>
+                        <p class="about-text">
+                            Donald John Trump is an American politician, media personality, and businessman who served as the 45th president of the United States from 2017 to 2021. A member of the Republican Party, he previously worked as a real estate developer and television personality.
+                        </p>
+                    </div> -->
+                    
+                    <div class="panel-section">
+                        <div class="info-item">
+                            <div class="info-label">Also Known As</div>
+                            <div class="info-value">Bharwa, Chomu, Gandu </div>
+                        </div>
+                        <!-- <div class="info-item">
+                            <div class="info-label">Best Friend</div>
+                            <div class="info-value">Aarushi Gulati <3</div>
+                        </div> -->
+                        <!-- <div class="info-item">
+                            <div class="info-label">Education</div>
+                            <div class="info-value">Wharton School (1966–1968)</div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const logo = document.getElementById("logo");
+        logo.addEventListener('click', function(){
+            window.location.href="index.html";
+        })
+    </script>
+</body>
+</html>
